@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
     title: string,
-    icon: React.ReactElement
+    icon?: React.ReactElement
 }
 
 const ButtonOutlined: React.FC<Props> = ({ title, icon }) => {
