@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+//router
+import { useHistory } from 'react-router-dom';
 //components
 import SplashLoader from './SplashLoader';
 import ButtonOutlined from '../utils/ButtonOutlined';
@@ -9,11 +11,12 @@ import LockIcon from '@material-ui/icons/Lock';
 
 
 interface Props {
-    loginUser: () => void
+    loginUser: (e: any, history: any) => void
 }
 
 const SplashScreen: React.FC<Props> = ({ loginUser }) => {
-
+    //route history
+    let history = useHistory();
 
     const [loading, setLoading] = useState(true);
 
@@ -48,7 +51,7 @@ const SplashScreen: React.FC<Props> = ({ loginUser }) => {
             <h1>
                 vod
             </h1>
-            <div onClick={() => loginUser()}>
+            <div onClick={(e) => loginUser(e, history)}>
                 {!loading && <ButtonOutlined title="log in Anonymously" icon={<LockIcon />} />}
             </div>
             <h2 className="introAnimationFirst">Home Cinema</h2>

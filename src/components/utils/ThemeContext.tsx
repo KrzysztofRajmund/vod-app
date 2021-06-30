@@ -2,5 +2,5 @@ import React from 'react';
 
 
 
-export const ContextUserLogin = React.createContext({});
+export const ThemeContext = React.createContext({});
 
