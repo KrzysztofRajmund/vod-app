@@ -1,0 +1,12 @@
+//heading
+@mixin heading {
+  color: $titleColor;
+  font-family: $familyFontsSecondary;
+}
+
+@mixin headingSecond {
+  @include heading;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3rem;
+}

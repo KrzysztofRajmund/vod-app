@@ -1,0 +1,59 @@
+.splashScreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/assets/bg-splash-screen.png');
+    background-position: center;
+    background-size: cover;
+    h1{
+        position: absolute;
+        color: $titleColor;
+        font-size: 8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2rem;
+        transform: translateY(-30%);
+        animation: animateOpacity 3s alternate-reverse, animateUp 3s alternate 4s ;
+        animation-fill-mode: forwards;
+        margin:0;
+    }
+
+    .splashLoading{
+        position:absolute;
+        top: 60%;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: animateOpacity 1s infinite;
+    };
+       .splashLoading.notActive{
+        display: none;
+        };
+
+    .splashButton{
+        animation: animateOpacity 2s alternate-reverse;
+        margin-top: 10rem;
+    }
+};
+
+//animation opacity
+@keyframes animateOpacity {
+    from {opacity: 1};
+    to {opacity: 0};
+};
+//animation translateY
+@keyframes animateUp {
+    from {transform: translateY(-30%)};
+    to {transform: translateY(-120%)};
+};
+
+
+  //animejs
+  .introAnimationFirst .letter{
+    @include headingSecond;
+    display: inline-block;
+    text-align: center;
+    color: $titleColor;
+    font-family: $familyFontsSecondary;
+  }
