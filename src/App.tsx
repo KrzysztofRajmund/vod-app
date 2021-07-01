@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 //router
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 //components

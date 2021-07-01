@@ -5,12 +5,15 @@
 html {
   font-size: 62.5%; //1rem = 10px, 1.6rem = 16px;
   font-family: $familyFontsSecondary;
+  background-color:$backgroundPrimaryColor;
+  color: $titleColor;
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
+  
 }
 
 /* width */
@@ -25,10 +28,10 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: darkblue;
+  background: $additionalColor;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: darkblue;
+  background: $additionalColor;
 }

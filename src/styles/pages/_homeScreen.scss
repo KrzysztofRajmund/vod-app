@@ -1,0 +1,75 @@
+
+.homeScreen{
+      width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $backgroundPrimaryColor;
+  .homeScreenRowContainer{
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+     .iconBefore, .iconNext{
+      cursor: pointer;
+      z-index: 90;
+      border-radius: 50%;
+      position: absolute;
+      top: 30%;
+      color: $titleColor;
+      width: 5.5rem;
+      height: 5.5rem;
+      padding: 0.5rem;
+      &:hover{
+        opacity: 0.5;
+      }
+    }
+    .iconBefore{
+      left: 0;
+       background-image: linear-gradient(to right, rgb(0, 0, 0,0.5), rgb(255, 255, 255,0.2));
+    }
+
+    .iconNext{
+      right: 0;
+        background-image: linear-gradient(to right, rgb(255, 255, 255,0.2),rgb(0, 0, 0,0.5) );
+    }
+  .homeScreenRow{
+    transform: translate(0px);
+    transition: transform 0.5s ease-in-out;
+    margin: 3.5rem 0;
+    height: 220px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  .homeScreenCol{
+    position: relative;
+    .homeScreenPlayIcon{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 8rem;
+    width: 8rem;
+    }
+   .homeScreenColImage{
+      width: 300px;
+      height: auto;
+      max-height: 170px;
+      border-radius: 1rem;
+      padding: 0.5rem;
+      transition-delay: 0.2s;
+      transition: transform 0.1s ease-in-out;
+      &:hover{
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+    }
+    h3{
+      text-align: center;
+      color: rgba(255, 255, 255, 0.19);
+      margin-top: 1rem;
+    } 
+    }
+  }
+}
+}
