@@ -26,7 +26,6 @@ interface Props {
 }
 
 const FilmPlayer: React.FC<Props> = ({ media, openHandler }) => {
-    console.log("MEDIA", media);
     const [toggle, setToggle] = useState(false);
     const [playbackRate, setplaybackRate] = useState(0);
     const closeHandler = () => {
@@ -44,11 +43,27 @@ const FilmPlayer: React.FC<Props> = ({ media, openHandler }) => {
             setplaybackRate(4);
         } else {
             setplaybackRate(1);
+        };
+    }, [toggle]);
+
+    const mouseHandler = () => {
+        let closeIcon = document.getElementsByClassName('closeIcon')[0];
+        let playback = document.getElementsByClassName('playback')[0];
+        let iconsArray: any = [closeIcon, playback];
+
+        for (let i = 0; i < iconsArray.length; i++) {
+            iconsArray[i].style.opacity = '1';
         }
-    }, [toggle])
+        setTimeout(() => {
+            for (let i = 0; i < iconsArray.length; i++) {
+                iconsArray[i].style.opacity = '0';
+            }
+        }, 5000);
+    }
+
 
     return (
-        <section className="filmPlayerWrapper">
+        <section className="filmPlayerWrapper" onMouseMove={mouseHandler}>
             {media &&
                 <>
                     <CloseIcon className="closeIcon" onClick={() => closeHandler()} />
@@ -62,7 +77,7 @@ const FilmPlayer: React.FC<Props> = ({ media, openHandler }) => {
                         playbackRate={playbackRate}
                     />
                     {media.ContentUrl === undefined ? (<h2><Message message={media.Title + 'is currently unavailable'} /></h2>) : <h1>{media.Title}</h1>}
-                    {toggle ? <img className="playbackActive" onClick={() => playbackHandler()} src={PlaybackActive} alt="playback-active" />
+                    {toggle ? <img className="playback" onClick={() => playbackHandler()} src={PlaybackActive} alt="playback-active" />
                         : <img className="playback" onClick={() => playbackHandler()} src={Playback} alt="playback" />}
 
                 </>

@@ -27,7 +27,7 @@ const SplashScreen: React.FC<Props> = ({ loginUser }) => {
     if (!loading) {
         //animation-first
         var textWrapper: any = document.querySelector(
-            '.introAnimationFirst'
+            '.subtitleAnimation'
         );
         const regex = /\S/g;
         textWrapper.innerHTML = textWrapper.textContent.replace(
@@ -36,7 +36,7 @@ const SplashScreen: React.FC<Props> = ({ loginUser }) => {
         );
 
         anime.timeline({ loop: false }).add({
-            targets: '.introAnimationFirst .letter',
+            targets: '.subtitleAnimation .letter',
             translateX: [40, 0],
             translateZ: 0,
             opacity: [0, 1],
@@ -54,7 +54,7 @@ const SplashScreen: React.FC<Props> = ({ loginUser }) => {
             <div onClick={(e) => loginUser(e, history)}>
                 {!loading && <ButtonOutlined title="log in Anonymously" icon={<LockIcon />} />}
             </div>
-            <h2 className="introAnimationFirst">Home Cinema</h2>
+            <h2 className="subtitleAnimation">Home Cinema</h2>
             <SplashLoader toggleLoading={toggleLoading} />
         </section>
     );

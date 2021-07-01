@@ -37,7 +37,23 @@
     }
 };
 
-//animation opacity
+  //animejs
+  .subtitleAnimation {
+    animation: animateOpacity 2s alternate-reverse;
+    animation-fill-mode: forwards;
+    transform: translateY(50%);
+    @include headingSecond;
+    display: inline-block;
+    text-align: center;
+    color: $titleColor;
+    font-family: $familyFontsSecondary;
+  }
+
+  .subtitleAnimation .letter{
+    display: inline-block;
+  }
+
+  //animation opacity
 @keyframes animateOpacity {
     from {opacity: 1};
     to {opacity: 0};
@@ -47,13 +63,3 @@
     from {transform: translateY(-30%)};
     to {transform: translateY(-120%)};
 };
-
-
-  //animejs
-  .introAnimationFirst .letter{
-    @include headingSecond;
-    display: inline-block;
-    text-align: center;
-    color: $titleColor;
-    font-family: $familyFontsSecondary;
-  }
