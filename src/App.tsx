@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SplashScreen from './components/SplashScreen/SplashScreen';
 import HomeScreen from './components/HomeScreen/HomeScreen';
 import PrivateRoute from './components/utils/PrivateRoute';
+import NoAuth from './components/utils/NoAuth';
 
 
 const App: React.FC = () => {
@@ -33,6 +34,9 @@ const App: React.FC = () => {
   return (
     <Router>
       <Switch>
+        <Route path='/noauth'>
+          <NoAuth />
+        </Route>
         <PrivateRoute exact path='/home' component={HomeScreen} />
         <Route path='/'>
           <SplashScreen loginUser={loginUser} />

@@ -58,6 +58,7 @@ const HomeScreen: React.FC = () => {
     const [open, setOpen] = useState(false);
     const [mediaInfo, setMediaInfo] = useState<Media | undefined>();
     const [error, setError] = useState(false);
+    const [mediaId, setMediaId] = useState<number | null>(null);
 
     //media list
     const getMediaList = async (mediaListId: number) => {
@@ -80,7 +81,6 @@ const HomeScreen: React.FC = () => {
 
             const data = await response.json();
             setMediaList(data.Entities);
-            console.log(data);
         } catch (error) {
             console.log(error);
             setError(true);
@@ -102,50 +102,55 @@ const HomeScreen: React.FC = () => {
             return ' ';
         };
     };
-
     // slider 
     let count = 0;
     const handleSlider = (x: string) => {
-        const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        const windowWidth = window.innerWidth;
         const imageEl: any = document.getElementsByClassName('homeScreenColImage')[0];
         const imageElWidth: number = imageEl.offsetWidth;
         if (mediaRowEl.current && ((imageElWidth * mediaList.length) > ((count + 1) * windowWidth)) && x === '-') {
             count++;
-            mediaRowEl.current.style.transform = `translateX(-${count * windowWidth}px)`;
+            mediaRowEl.current.style.transform = `translateX(-${count * imageElWidth * 5}px)`;
         };
-        if (mediaRowEl.current && x === '+' && mediaRowEl.current.style.transform !== 'translateX(0px)') {
+        if (mediaRowEl.current && x === '+' && mediaRowEl.current.style.transform !== 'translateX(0px)'
+            && mediaRowEl.current.style.transform !== "") {
             count--;
-            mediaRowEl.current.style.transform = `translateX(${count * -windowWidth}px)`;
+            mediaRowEl.current.style.transform = `translateX(${count * -imageElWidth * 5}px)`;
         };
     };
-
     //get movie
-    const getPlayInfo = async (mediaId: number) => {
-        setOpen(!open);
-        try {
-            const url = 'https://thebetter.bsgroup.eu/Media/GetMediaPlayInfo';
-            const header = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('jwtTokenBSG') };
-            const bodyObject: any = {
-                "MediaId": mediaId,
-                "StreamType": "TRIAL"
+    useEffect(() => {
+        if (mediaId) {
+            const getPlayInfo = async (mediaId: number) => {
+
+                try {
+                    const url = 'https://thebetter.bsgroup.eu/Media/GetMediaPlayInfo';
+                    const header = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('jwtTokenBSG') };
+                    const bodyObject: any = {
+                        "MediaId": mediaId,
+                        "StreamType": "TRIAL"
+                    };
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        body: JSON.stringify(bodyObject),
+                        headers: header
+                    });
+                    const data = await response.json();
+                    setMediaInfo(data);
+                    setOpen(state => !state);
+                } catch (error) {
+                    console.log(error);
+                };
             };
-            const response = await fetch(url, {
-                method: 'POST',
-                body: JSON.stringify(bodyObject),
-                headers: header
-            });
-            const data = await response.json();
-            setMediaInfo(data);
-        } catch (error) {
-            console.log(error);
+            getPlayInfo(mediaId);
         };
-    };
+        return () => setMediaId(null);
+    }, [mediaId]);
+
     //open movie
     const openHandler = () => {
         setOpen(false);
     }
-
-    console.log("mediaInfo OUT", mediaInfo)
     return (
         <section className='homeScreen'>
             <HeaderComponent />
@@ -156,7 +161,7 @@ const HomeScreen: React.FC = () => {
                     {mediaList && mediaList.map((media) => {
                         return (
                             <div key={media.Id} className='homeScreenCol'>
-                                <img className="homeScreenColImage" onClick={() => getPlayInfo(media.Id)} src={filterImage(media.Images) !== ' ' ? filterImage(media.Images) : ImagePlaceholder} alt='slider' />
+                                <img className="homeScreenColImage" onClick={() => setMediaId(media.Id)} src={filterImage(media.Images) !== ' ' ? filterImage(media.Images) : ImagePlaceholder} alt='slider' />
                                 <h3>{media.Title}</h3>
                             </div>
                         )
@@ -169,4 +174,4 @@ const HomeScreen: React.FC = () => {
     );
 };
 
-export default HomeScreen;
+export default React.memo(HomeScreen);

@@ -28,15 +28,13 @@ interface Props {
 const FilmPlayer: React.FC<Props> = ({ media, openHandler }) => {
     const [toggle, setToggle] = useState(false);
     const [playbackRate, setplaybackRate] = useState(0);
+
     const closeHandler = () => {
         openHandler();
     };
-
-
     const playbackHandler = () => {
         setToggle(!toggle);
     };
-
 
     useEffect(() => {
         if (toggle) {
@@ -46,20 +44,25 @@ const FilmPlayer: React.FC<Props> = ({ media, openHandler }) => {
         };
     }, [toggle]);
 
+    let x: any;
     const mouseHandler = () => {
         let closeIcon = document.getElementsByClassName('closeIcon')[0];
         let playback = document.getElementsByClassName('playback')[0];
         let iconsArray: any = [closeIcon, playback];
-
-        for (let i = 0; i < iconsArray.length; i++) {
-            iconsArray[i].style.opacity = '1';
+        if (x) {
+            clearTimeout(x);
         }
-        setTimeout(() => {
+        if (iconsArray) {
             for (let i = 0; i < iconsArray.length; i++) {
-                iconsArray[i].style.opacity = '0';
-            }
-        }, 5000);
-    }
+                iconsArray[i].style.opacity = '1';
+            };
+            x = setTimeout(() => {
+                for (let i = 0; i < iconsArray.length; i++) {
+                    iconsArray[i].style.opacity = '0';
+                };
+            }, 5000);
+        };
+    };
 
 
     return (
@@ -76,7 +79,7 @@ const FilmPlayer: React.FC<Props> = ({ media, openHandler }) => {
                         height='100%'
                         playbackRate={playbackRate}
                     />
-                    {media.ContentUrl === undefined ? (<h2><Message message={media.Title + 'is currently unavailable'} /></h2>) : <h1>{media.Title}</h1>}
+                    {media.ContentUrl === undefined ? (<h2><Message message={`${media.Title} is currently unavailable`} /></h2>) : <h1>{media.Title}</h1>}
                     {toggle ? <img className="playback" onClick={() => playbackHandler()} src={PlaybackActive} alt="playback-active" />
                         : <img className="playback" onClick={() => playbackHandler()} src={Playback} alt="playback" />}
 
